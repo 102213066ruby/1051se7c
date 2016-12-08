@@ -34,7 +34,7 @@ if ($result) {
         ?>
         <tr>
         <td><?php echo $rs['cardName'];?></td>
-        <td>賣</td>
+        <td><a href='carding.php'>賣</a></td>
         </tr>
         <?php 
 	}
