@@ -1,15 +1,8 @@
 <?php
 require("dbconnect.php");
-
-function push($mid) {
+function getbag() {
 	global $conn;
-	$sql = "update guestbook set push = push+1 where id=$mid;";
-	return mysqli_query($conn,$sql);
-}
-
-function getMsgList() {
-	global $conn;
-	$sql = "select * from student S ;";
+	$sql = "select * from bag ;";
 	return mysqli_query($conn,$sql);
 }
 function get($userName){
@@ -52,7 +45,7 @@ function update ($name,$skill,$status,$salary,$birth,$employer,$loginID){
     $salary=mysqli_real_escape_string($conn,$salary);
     $birth=mysqli_real_escape_string($conn,$birth);
     $employer=mysqli_real_escape_string($conn,$employer);
-$sql = "update student set name='$name',
+	$sql = "update student set name='$name',
                             skill= '$skill',
                             status='$status',
                             salary='$salary',
@@ -61,6 +54,18 @@ $sql = "update student set name='$name',
                             where loginID='$loginID';";
 return mysqli_query($conn, $sql);
     
+}
+function update11($highestprice){
+    global $conn;
+	$highestprice=mysqli_real_escape_string($conn,$highestprice);
+	$sql = "update bag set highestprice='$highestprice';";
+	return mysqli_query($conn, $sql);
+    
+}
+function update12($userName,$lessMoney){
+    global $conn;
+	$sql ="update user set Money ='$lessMoney' where userName='$userName'";
+	return mysqli_query($conn,$sql);   
 }
 function addMsg($title, $msg, $name) {
 	global $conn;

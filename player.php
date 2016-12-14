@@ -2,7 +2,6 @@
 session_start();
 require("Msg.php");
 $userName=$_SESSION['uID'];
-
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -24,6 +23,8 @@ if ($r) {
 
  <hr />
 <!--<a href=getMoney.php> 你有多少錢     </a>-->
+<a href='bag.php'> 福袋競標</a>
+<hr/>
 <p>您擁有的卡片 </p>
  <table width="200" border="1">
 <tr><td>cardname</td></tr>

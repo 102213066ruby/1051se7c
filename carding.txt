@@ -1,0 +1,32 @@
+?></p>
+<hr />
+<table width="200" border="1">
+  <tr>
+    <td>name</td>
+    <td>skill</td>
+    <td>status</td>
+    <td>salary</td>
+    <td>birth</td>
+	<td>employer</td>
+    <td>comment</td>
+    <td>修改</td>
+    <td>刪除</td>
+  </tr>
+<?php
+if ($result) {
+	while (	$rs=mysqli_fetch_assoc($result)) {
+		echo "<tr><td>" . $rs['name'] . "</td>";
+		echo "<td>". $rs['skill'] ."</td>";
+		echo "<td>" , $rs['status'], "</td>";
+		echo "<td>" . $rs['salary'] . "</td>";
+        echo "<td>" . $rs['birth'] . "</td>";
+		echo "<td>" . $rs['employer'] . "</td>";
+        echo "<td>" . $rs['comment'] . "</td>";
+        echo "<td><a href =update1.php?loginID={$rs['loginID']}> update</a></td>";
+        echo "<td>delete</td>";
+        
+	}
+} else {
+	echo "<tr><td>No data found!<td></tr>";
+}
+?>

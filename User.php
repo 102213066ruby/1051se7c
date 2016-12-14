@@ -1,37 +1,32 @@
 <?php
 require("dbconnect.php");
-
-function checkUser($uID, $Pwd) {
+function getMoney1($userName) {
 	global $conn;
-	$uID =mysqli_real_escape_string($conn,$uID);
-	$sql = "SELECT Pwd FROM user WHERE userID='$uID'";
+	$userName =mysqli_real_escape_string($conn,$userName);
+	$sql = "SELECT Money FROM user WHERE userName='$userName'";
 	if ($result = mysqli_query($conn,$sql)) {
 		if ($row=mysqli_fetch_assoc($result)) {
-			if ($row['password'] === $Pwd) {
-				//return role ID
-//return $row['role'];
+				return $row['Money'];
 			} 
 		}
-	}
+	
+	return -1;
+}
+
+function getbagprice($userName) {
+	global $conn;
+	$userName =mysqli_real_escape_string($conn,$userName);
+	$sql = "SELECT highestprice FROM bag ";
+	if ($result = mysqli_query($conn,$sql)) {
+		if ($row=mysqli_fetch_assoc($result)) {
+				//return role ID
+				return $row['highestprice'];
+			} 
+		}
+	
 	//-1 ==> fail
 	return -1;
 }
 
-/*function checkDepartment($uID, $Pwd) {
-	global $conn;
-	$uID =mysqli_real_escape_string($conn,$uID);
-	$sql = "SELECT password,department FROM user WHERE loginID='$uID'";
-	if ($result = mysqli_query($conn,$sql)) {
-		if ($row=mysqli_fetch_assoc($result)) {
-			if ($row['password'] === $Pwd) {
-				//return role ID
-				return $row['department'];
-			} 
-		}
-	}
-	//-1 ==> fail
-	return -1;
-}
-*/
 
 ?>
