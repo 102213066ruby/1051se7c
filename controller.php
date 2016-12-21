@@ -11,11 +11,13 @@ if(! isset($_POST["act"])) {
 
 $act =$_POST["act"];
 switch($act) {   
+
     case "sell":
-        $uID=$_POST['uID'];
         $cardID=$_POST['cardID'];
+        $deadline=$_POST['deadline'];
         $bidMoney=$_POST['bidMoney'];
-        if(bid($cardID,$bidMoney,$uID)){
+        $uID=$_POST['uID'];
+        if(bid($cardID,$deadline,$bidMoney,$uID)){
             header("Location:player.php");
             //echo"sucess";
         }else{

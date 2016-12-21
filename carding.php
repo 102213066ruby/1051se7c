@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 require("Msg.php");
@@ -36,15 +35,18 @@ if($result) {
                 <td>最高得標者</td>-->
             <tr>
                 <td>出價</td>
+            </tr>
+            <tr>
+                <td>截標時間</td>
+            </tr>
+            <tr>
                 <form method="post" action="controller.php">
                     <input type="hidden" name="act" id="act" value="sell">
                     <input type="hidden" name="uID" id="uID" value="<?php echo $uID;?>">
                     <input type="hidden" name="cardID" id="cardID" value="<?php echo $cardID;?>">
-                    <td>
-                        <input type="text" name="bidMoney" id="bidMoney">
-                    </td>
-                    <td>
-                        <input type="submit" name="Submit" value="送出" />
+                    <td><input type="text" name="bidMoney" id="bidMoney"></td>
+                    <td><input type="datetime-Local" name="deadline" id="deadline"></td>
+                    <td><input type="submit" name="Submit" value="送出" /></td>
                     </td>
                 </form>
             </tr>

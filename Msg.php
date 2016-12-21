@@ -1,5 +1,6 @@
 <?php
 require("dbconnect.php");
+
 function getbag() {
 	global $conn;
 	$sql = "select * from bag ;";
@@ -18,7 +19,7 @@ function getMyCarding($userName){
 }
 function get($userName){
     global $conn;
-	$sql = "select * from card where userName='$userName';";
+	$sql = "select * from card where userName='$userName' ORDER BY cardName Desc;";
 	return mysqli_query($conn,$sql);
 }
 function getMoney($userName){
@@ -78,6 +79,39 @@ function update12($userName,$lessMoney){
 	$sql ="update user set Money ='$lessMoney' where userName='$userName'";
 	return mysqli_query($conn,$sql);   
 }
+function update13($userName){
+    global $conn;
+    $sql = "update bag set userName ='$userName' ";
+    return mysqli_query($conn,$sql);
+}
+function update14($highestprice,$userName){
+    global $conn;
+    $sql = "update carding set highestprice = '$highestprice' where userName='$userName' ";
+    return mysqli_query($conn,$sql);
+}
+function baginsert($r1,$userName){
+	global $conn;
+	$sql = "insert into card (cardName,userName) values ('$r1','$userName');";
+	return mysqli_query($conn,$sql);
+}
+function baginsert1($r2,$userName){
+	global $conn;
+	$sql = "insert into card (cardName,userName) values ('$r2','$userName');";
+	return mysqli_query($conn,$sql);
+}
+function baginsert2($r3,$userName){
+	global $conn;
+	$sql = "insert into card (cardName,userName) values ('$r3','$userName');";
+	return mysqli_query($conn,$sql);
+}
+function delbagID($bagID,$userName) {
+	global $conn;
+	$sql = "delete from bag where bagID=$bagID;";
+	return mysqli_query($conn,$sql);
+}
+
+
+
 function addMsg($title, $msg, $name) {
 	global $conn;
 	$title=mysqli_real_escape_string($conn,$title);
@@ -103,12 +137,13 @@ function getcardID($cardID){
 	return mysqli_query($conn,$sql);
 }
 
-function bid($cardID, $bidMoney, $uID) {//賣卡片
+function bid($cardID,$deadline, $bidMoney, $uID) {//賣卡片
     global $conn;
     $cardID=mysqli_real_escape_string($conn,$cardID);
+    $deadline=mysqli_real_escape_string($conn,$deadline);
     $bidMoney=mysqli_real_escape_string($conn,$bidMoney);
     $uID=mysqli_real_escape_string($conn,$uID);
-    $sql = "insert into carding (cardID, price, userID) values ('$cardID', '$bidMoney', '$uID');";
+    $sql = "insert into carding (cardID, deadline, price, userID) values ('$cardID', '$deadline', '$bidMoney', '$uID');";
     return mysqli_query($conn,$sql);
 }
 

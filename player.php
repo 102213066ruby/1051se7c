@@ -1,12 +1,41 @@
 <?php
 session_start();
 require("Msg.php");
+require "dbconnect.php";
 $userName=$_SESSION['uID'];
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 </head>
+<script type="text/javascript" src="jquery.js"></script>
+<script language="javascript">
+function checkBag() {
+	now= new Date(); //get the current time
+	//check each bomb with a for loop
+	//array length: number of items in the global array: myArray
+	for (i=0; i < pArray.length;i++) {	
+		tday=new Date(pArray[i]['expire']); //convert the date string into date object in javascript
+		if (tday <= now) { 
+			//expired, set the explode image and text
+			//$("#bomb" + i).attr('src',"images/explode.jpg");
+			$("#timer"+i).html("截標")
+            location.href="timesup.php? act=timesup";
+		} else {
+			//set the bomb image  and calculate count down
+			//$("#bomb" + i).attr('src',"images/bomb.jpg");
+			$("#timer"+i).html(Math.floor((tday-now)/1000))			
+		}
+	}
+}
 
+//javascript, to set the timer on windows load event
+window.onload = function () {
+	//check the bomb status every 1 second
+    setInterval(function () {
+		checkBag()
+    }, 1000);
+};
+</script>
 <body>
 <p><?php echo $userName;?>您好&nbsp [<a href="logout.php">登出</a>]</p>
 <?php 
@@ -68,13 +97,13 @@ if ($result) {
     <td>最高得標者</td>
   </tr>
 <?php 
-$result=getMyCarding($userName);
+$result2=getMyCarding($userName);
 if ($result) {
-	while (	$rs=mysqli_fetch_assoc($result)) {
+	while (	$rs=mysqli_fetch_assoc($result2)) {
         echo "<tr><td>" . getCardName($rs['cardID']) . "</td>";
 		echo "<td>". $rs['deadline'] ."</td>";
 		echo "<td>" , $rs['highestprice'], "</td>";
-		echo "<td>" . $rs['bidName'] . "</td>";
+		echo "<td>" . $rs['bidName'] . "</td></tr>";
 	}
 } else {
 	echo "<tr><td>No data found!<td></tr>";
