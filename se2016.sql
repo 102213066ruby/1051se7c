@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- 主機: 127.0.0.1
--- 產生時間： 2016-12-21 04:41:42
+-- 產生時間： 2016-12-21 08:25:00
 -- 伺服器版本: 10.1.16-MariaDB
--- PHP 版本： 7.0.9
+-- PHP 版本： 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -38,7 +38,7 @@ CREATE TABLE `bag` (
 --
 
 INSERT INTO `bag` (`bagID`, `expire`, `highestprice`, `userName`) VALUES
-(1, '2016-12-12 16:05:07', 300, NULL);
+(1, '2016-12-12 16:05:07', 600, NULL);
 
 -- --------------------------------------------------------
 
@@ -72,15 +72,17 @@ CREATE TABLE `carding` (
   `deadline` int(20) NOT NULL,
   `price` int(20) NOT NULL,
   `highestprice` int(20) NOT NULL,
-  `userID` char(20) NOT NULL
+  `userID` char(20) NOT NULL,
+  `bidName` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- 資料表的匯出資料 `carding`
 --
 
-INSERT INTO `carding` (`cardID`, `deadline`, `price`, `highestprice`, `userID`) VALUES
-(1, 0, 300, 0, 'AAA');
+INSERT INTO `carding` (`cardID`, `deadline`, `price`, `highestprice`, `userID`, `bidName`) VALUES
+(1, 0, 422, 0, 'AAA', ''),
+(3, 0, 600, 0, 'AAA', '');
 
 -- --------------------------------------------------------
 
@@ -119,7 +121,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`userName`, `passWord`, `Money`) VALUES
-('AAA', '123', 296),
+('AAA', '123', 400),
 ('BBB', '123', 300),
 ('ccc', '123', 1000);
 

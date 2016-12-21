@@ -5,6 +5,17 @@ function getbag() {
 	$sql = "select * from bag ;";
 	return mysqli_query($conn,$sql);
 }
+function getCarding(){
+    global $conn;
+	$sql = "select * from carding;";
+	return mysqli_query($conn,$sql);
+}
+function getMyCarding($userName){
+    global $conn;
+	//$sql = "select cardID, deadline, highestprice, bidID from carding where userID='$userName';";
+    $sql = "select * from carding where userID='$userName';";
+	return mysqli_query($conn,$sql);
+}
 function get($userName){
     global $conn;
 	$sql = "select * from card where userName='$userName';";
@@ -101,4 +112,17 @@ function bid($cardID, $bidMoney, $uID) {//賣卡片
     return mysqli_query($conn,$sql);
 }
 
+function getCardName($cardID) {//從cardID find cardNmae
+    global $conn;
+    $cardID=mysqli_real_escape_string($conn,$cardID);
+    $sql = "select * from card where cardID='$cardID';";
+	$r = mysqli_query($conn,$sql);
+    if($r1 = mysqli_fetch_assoc($r)) {
+        return $r1['cardName'];
+    }
+    else {
+        $n = "nothing";
+        return $n;
+    } 
+}
 ?>

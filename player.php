@@ -24,6 +24,7 @@ if ($r) {
  <hr />
 <!--<a href=getMoney.php> 你有多少錢     </a>-->
 <a href='bag.php'> 福袋競標</a>
+<a href='cardingWhere.php'> 競標&拍賣</a>
 <hr/>
 <p>您擁有的卡片 </p>
  <table width="200" border="1">
@@ -55,14 +56,31 @@ if ($result) {
  ?>
 <hr />
 <p>您正在競標的卡片</p>
- 
+
  <!--</body>-->
  <hr />
 <p>您正在拍賣的卡片</p>
-<table>
+ <table width="1000" border="5">
+  <tr>
+    <td>卡片名稱</td>
+    <td>剩餘時間</td>
+    <td>最高出價</td>
+    <td>最高得標者</td>
+  </tr>
+<?php 
+$result=getMyCarding($userName);
+if ($result) {
+	while (	$rs=mysqli_fetch_assoc($result)) {
+        echo "<tr><td>" . getCardName($rs['cardID']) . "</td>";
+		echo "<td>". $rs['deadline'] ."</td>";
+		echo "<td>" , $rs['highestprice'], "</td>";
+		echo "<td>" . $rs['bidName'] . "</td>";
+	}
+} else {
+	echo "<tr><td>No data found!<td></tr>";
+}
+?>
 </table>
 <hr />
-<p>可拍卡片</p>
-<table>
-</table>
+
  </body>
