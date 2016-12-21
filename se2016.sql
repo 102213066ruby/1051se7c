@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主機: 127.0.0.1
--- 產生時間： 2016-12-08 15:34:09
+-- 產生時間： 2016-12-21 04:41:42
 -- 伺服器版本: 10.1.16-MariaDB
 -- PHP 版本： 7.0.9
 
@@ -23,14 +23,34 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- 資料表結構 `bag`
+--
+
+CREATE TABLE `bag` (
+  `bagID` int(11) NOT NULL,
+  `expire` datetime NOT NULL,
+  `highestprice` int(100) NOT NULL,
+  `userName` char(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- 資料表的匯出資料 `bag`
+--
+
+INSERT INTO `bag` (`bagID`, `expire`, `highestprice`, `userName`) VALUES
+(1, '2016-12-12 16:05:07', 300, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- 資料表結構 `card`
 --
 
 CREATE TABLE `card` (
   `cardID` int(11) NOT NULL,
-  `cardName` int(10) NOT NULL,
-  `userName` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `cardName` int(20) NOT NULL,
+  `userName` char(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- 資料表的匯出資料 `card`
@@ -48,12 +68,19 @@ INSERT INTO `card` (`cardID`, `cardName`, `userName`) VALUES
 --
 
 CREATE TABLE `carding` (
-  `cardName` int(20) NOT NULL,
+  `cardID` int(20) NOT NULL,
   `deadline` int(20) NOT NULL,
   `price` int(20) NOT NULL,
   `highestprice` int(20) NOT NULL,
   `userID` char(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- 資料表的匯出資料 `carding`
+--
+
+INSERT INTO `carding` (`cardID`, `deadline`, `price`, `highestprice`, `userID`) VALUES
+(1, 0, 300, 0, 'AAA');
 
 -- --------------------------------------------------------
 
@@ -92,12 +119,19 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`userName`, `passWord`, `Money`) VALUES
-('AAA', '123', 1000),
-('BBB', '123', 1000);
+('AAA', '123', 296),
+('BBB', '123', 300),
+('ccc', '123', 1000);
 
 --
 -- 已匯出資料表的索引
 --
+
+--
+-- 資料表索引 `bag`
+--
+ALTER TABLE `bag`
+  ADD PRIMARY KEY (`bagID`);
 
 --
 -- 資料表索引 `card`
@@ -109,7 +143,7 @@ ALTER TABLE `card`
 -- 資料表索引 `carding`
 --
 ALTER TABLE `carding`
-  ADD PRIMARY KEY (`cardName`);
+  ADD PRIMARY KEY (`cardID`);
 
 --
 -- 資料表索引 `game`
@@ -127,11 +161,6 @@ ALTER TABLE `user`
 -- 在匯出的資料表使用 AUTO_INCREMENT
 --
 
---
--- 使用資料表 AUTO_INCREMENT `card`
---
-ALTER TABLE `card`
-  MODIFY `cardID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- 使用資料表 AUTO_INCREMENT `game`
 --

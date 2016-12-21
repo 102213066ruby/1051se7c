@@ -86,6 +86,19 @@ function delMsg($msgID) {
 	return mysqli_query($conn,$sql);
 }
 
+function getcardID($cardID){
+    global $conn;
+	$sql = "select * from card where cardID='$cardID';";
+	return mysqli_query($conn,$sql);
+}
 
+function bid($cardID, $bidMoney, $uID) {//賣卡片
+    global $conn;
+    $cardID=mysqli_real_escape_string($conn,$cardID);
+    $bidMoney=mysqli_real_escape_string($conn,$bidMoney);
+    $uID=mysqli_real_escape_string($conn,$uID);
+    $sql = "insert into carding (cardID, price, userID) values ('$cardID', '$bidMoney', '$uID');";
+    return mysqli_query($conn,$sql);
+}
 
 ?>

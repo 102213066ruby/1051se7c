@@ -35,7 +35,7 @@ if ($result) {
         ?>
         <tr>
         <td><?php echo $rs['cardName'];?></td>
-        <td><a href='carding.php'>賣</a></td>
+        <td><a href='carding.php?cardID=<?php echo $rs['cardID'];?>'>賣</a></td>
         </tr>
         <?php 
 	}
@@ -56,8 +56,13 @@ if ($result) {
 <hr />
 <p>您正在競標的卡片</p>
  
- </body>
+ <!--</body>-->
  <hr />
 <p>您正在拍賣的卡片</p>
- 
+<table>
+</table>
+<hr />
+<p>可拍卡片</p>
+<table>
+</table>
  </body>

@@ -1,6 +1,8 @@
 <?php
 session_start();
-require("loginForm.php");
+require("dbconnect.php");
+require("Msg.php");
+require("User.php");
 if(! isset($_POST["act"])) {
 	exit(0);
     
@@ -9,6 +11,18 @@ if(! isset($_POST["act"])) {
 
 $act =$_POST["act"];
 switch($act) {   
+    case "sell":
+        $uID=$_POST['uID'];
+        $cardID=$_POST['cardID'];
+        $bidMoney=$_POST['bidMoney'];
+        if(bid($cardID,$bidMoney,$uID)){
+            header("Location:player.php");
+            //echo"sucess";
+        }else{
+            echo "Error";
+        }
+        break;
+    
     case "update":
         $loginID=$_SESSION['uID'];
         $name=$_POST['name'];
