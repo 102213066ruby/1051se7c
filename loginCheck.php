@@ -18,5 +18,5 @@ if ($result = mysqli_query($conn,$sql)) {
 			echo "Please try again ";
 		}
 	}
-}
+} 
 ?>

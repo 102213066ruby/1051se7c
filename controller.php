@@ -65,6 +65,15 @@ switch($act) {
 			echo "Login failed.<br>";
 			echo "<a href='loginForm.php'>login</a>";
 		}
+    case "register":
+		$UserID = $_POST['userName'];
+		$password = $_POST['passWord'];
+		if(register($UserID,$password)) {
+            header("Location:loginForm.php");
+        } else {
+            echo "註冊失敗";
+            header("Location:register.php");
+        }
 	default:
 }
 ?>

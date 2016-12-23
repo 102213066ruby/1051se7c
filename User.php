@@ -103,5 +103,29 @@ function getbagprice($userName) {
 	return -1;
 }
 
+function register($UserID,$password) {
+	global $conn;
+	$UserID =mysqli_real_escape_string($conn,$UserID);
+    $password =mysqli_real_escape_string($conn,$password);
+	$money="1000";
+    $sql = "insert into user (userName, passWord,Money) values ('$UserID', '$password','$money')";
+	if (mysqli_query($conn,$sql)) {
+        $card1 = rand(1,8);
+        $card2 = rand(1,8);
+        $card3 = rand(1,8);
+        
+        $sql_2 = "insert into card (cardName, userName) values ('$card1', '$UserID'),
+        ('$card2', '$UserID'),('$card3', '$UserID')";
+        if (mysqli_query($conn,$sql_2)) {
+            //
+        } else {
+            echo "insert card error";
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 ?>
