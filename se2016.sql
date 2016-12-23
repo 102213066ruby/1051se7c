@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主機: 127.0.0.1
--- 產生時間： 2016-12-21 08:25:00
+-- 產生時間： 2016-12-23 11:51:30
 -- 伺服器版本: 10.1.16-MariaDB
 -- PHP 版本： 5.6.24
 
@@ -38,7 +38,7 @@ CREATE TABLE `bag` (
 --
 
 INSERT INTO `bag` (`bagID`, `expire`, `highestprice`, `userName`) VALUES
-(1, '2016-12-12 16:05:07', 600, NULL);
+(1, '2016-12-23 17:55:00', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -47,7 +47,7 @@ INSERT INTO `bag` (`bagID`, `expire`, `highestprice`, `userName`) VALUES
 --
 
 CREATE TABLE `card` (
-  `cardID` int(11) NOT NULL,
+  `cardID` int(15) NOT NULL,
   `cardName` int(20) NOT NULL,
   `userName` char(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -57,9 +57,41 @@ CREATE TABLE `card` (
 --
 
 INSERT INTO `card` (`cardID`, `cardName`, `userName`) VALUES
-(1, 1, 'AAA'),
-(2, 1, 'BBB'),
-(3, 2, 'AAA');
+(1, 1, 'aaa'),
+(2, 2, 'aaa'),
+(3, 3, 'aaa'),
+(4, 4, 'aaa'),
+(5, 5, 'aaa'),
+(6, 6, 'aaa'),
+(7, 7, 'aaa'),
+(8, 8, 'aaa'),
+(29, 6, 'AAA'),
+(30, 6, 'AAA'),
+(31, 8, 'AAA'),
+(32, 5, 'BBB'),
+(33, 2, 'BBB'),
+(34, 2, 'BBB'),
+(35, 8, 'BBB'),
+(36, 7, 'BBB'),
+(37, 1, 'BBB'),
+(38, 8, 'BBB'),
+(39, 2, 'BBB'),
+(40, 4, 'BBB'),
+(41, 4, 'BBB'),
+(42, 1, 'BBB'),
+(43, 4, 'BBB'),
+(44, 6, 'BBB'),
+(45, 8, 'BBB'),
+(46, 4, 'BBB'),
+(47, 7, 'BBB'),
+(48, 2, 'BBB'),
+(49, 6, 'BBB'),
+(50, 7, 'AAA'),
+(51, 4, 'AAA'),
+(52, 2, 'AAA'),
+(53, 1, 'bbb'),
+(54, 2, 'bbb'),
+(55, 5, 'bbb');
 
 -- --------------------------------------------------------
 
@@ -69,40 +101,21 @@ INSERT INTO `card` (`cardID`, `cardName`, `userName`) VALUES
 
 CREATE TABLE `carding` (
   `cardID` int(20) NOT NULL,
-  `deadline` int(20) NOT NULL,
+  `deadline` datetime NOT NULL,
   `price` int(20) NOT NULL,
-  `highestprice` int(20) NOT NULL,
+  `highestprice` int(20) DEFAULT '0',
+  `bidName` char(10) NOT NULL,
   `userID` char(20) NOT NULL,
-  `bidName` char(10) NOT NULL
+  `cardName` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- 資料表的匯出資料 `carding`
 --
 
-INSERT INTO `carding` (`cardID`, `deadline`, `price`, `highestprice`, `userID`, `bidName`) VALUES
-(1, 0, 422, 0, 'AAA', ''),
-(3, 0, 600, 0, 'AAA', '');
-
--- --------------------------------------------------------
-
---
--- 資料表結構 `game`
---
-
-CREATE TABLE `game` (
-  `id` int(11) NOT NULL,
-  `expire` datetime NOT NULL,
-  `name` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- 資料表的匯出資料 `game`
---
-
-INSERT INTO `game` (`id`, `expire`, `name`) VALUES
-(1, '2016-11-28 11:57:54', 'No 1'),
-(2, '2016-11-28 11:57:09', 'No 2');
+INSERT INTO `carding` (`cardID`, `deadline`, `price`, `highestprice`, `bidName`, `userID`, `cardName`) VALUES
+(1, '2016-12-23 17:54:00', 1000, 50001, 'bbb', 'AAA', 1),
+(7, '2016-12-24 10:01:00', 1000, 40000, 'bbb', 'aaa', 0);
 
 -- --------------------------------------------------------
 
@@ -121,9 +134,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`userName`, `passWord`, `Money`) VALUES
-('AAA', '123', 400),
-('BBB', '123', 300),
-('ccc', '123', 1000);
+('AAA', '123', 499903),
+('BBB', '123', 499903);
 
 --
 -- 已匯出資料表的索引
@@ -148,12 +160,6 @@ ALTER TABLE `carding`
   ADD PRIMARY KEY (`cardID`);
 
 --
--- 資料表索引 `game`
---
-ALTER TABLE `game`
-  ADD PRIMARY KEY (`id`);
-
---
 -- 資料表索引 `user`
 --
 ALTER TABLE `user`
@@ -164,10 +170,10 @@ ALTER TABLE `user`
 --
 
 --
--- 使用資料表 AUTO_INCREMENT `game`
+-- 使用資料表 AUTO_INCREMENT `card`
 --
-ALTER TABLE `game`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `card`
+  MODIFY `cardID` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

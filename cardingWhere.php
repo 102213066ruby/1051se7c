@@ -13,6 +13,25 @@ $re=getbag();
 </head>
 <script type="text/javascript" src="jquery.js"></script>
 <script language="javascript">
+function checkCarding() {
+	var now1= new Date(); //get the current time
+	//check each bomb with a for loop
+	//array length: number of items in the global array: myArray
+	for (j=0; j <= qArray.length;j++) {	
+		var today=new Date(qArray[j]['deadline']); //convert the date string into date object in javascript
+		if (today <= now1) { 
+			//expired, set the explode image and text
+			//$("#bomb" + i).attr('src',"images/explode.jpg");
+			$("#timerj"+j).html("截標")
+            //location.href="timesup1.php?act=timesup1";
+		} else {
+			//set the bomb image  and calculate count down
+			//$("#bomb" + i).attr('src',"images/bomb.jpg");
+			$("#timerj"+j).html(Math.floor((today-now1)/1000))			
+		}
+	}
+}
+
 function checkBag() {
 	now= new Date(); //get the current time
 	//check each bomb with a for loop
@@ -38,7 +57,11 @@ window.onload = function () {
     setInterval(function () {
 		checkBag()
     }, 1000);
+    setInterval(function () {
+		checkCarding()
+    }, 1000);
 };
+
 </script>
 
 <body>
@@ -65,19 +88,31 @@ if ($r) {
     <td>出價</td>
   </tr>
 <?php
-if ($result) {
-	while (	$rs=mysqli_fetch_assoc($result)) {
-        echo "<tr><td>" . getCardName($rs['cardID']) . "</td>";
-        echo "<td>". $rs['deadline'] ."</td>";
-        echo "<td>". $rs['price'] ."</td>";
-        echo "<td>" , $rs['highestprice'], "</td>";
-        echo "<td>" . $rs['bidName'] . "</td>";
-        echo"<td><a href='cardingsetprice.php'>出價 </a> </td> </tr>";
+$j=0; //counter for bombs
+$sql1="select * from carding"; //select all bomb information from DB
+$res1=mysqli_query($conn,$sql1) or die ("db錯了");
+$arr1 = array();
+if ($res1) {
+	while ($row1=mysqli_fetch_assoc($res1)) {
+        $arr1[]=$row1;
+        echo "<tr><td>" .$row1['cardName'] . "</td>";
+        echo "<td><div id = 'timerj$j'>--</div></td>";
+        echo "<td>". $row1['price'] ."</td>";
+        echo "<td>" , $row1['highestprice'], "</td>";
+        echo "<td>" . $row1['bidName'] . "</td>";
+        echo"<td><a href='cardingsetprice.php?cardID={$row1['cardID']}'>出價 </a> </td> </tr>";
+        $j++;
     }
 } else {
 	echo "<tr><td>No data found!<td></tr>";
 }
 ?>
+<script>
+<?php
+    echo"var qArray=" .json_encode($arr1);    
+?>
+</script>
+
 </table>
 <p>福袋</p>
 <hr />
@@ -95,7 +130,7 @@ $sql="select * from bag"; //select all bomb information from DB
 $res=mysqli_query($conn,$sql) or die ("db錯了");
 $arr = array();
       if($row=mysqli_fetch_assoc($res)){
-         $arr[]=$row  ; 
+        $arr[]=$row  ; 
 		echo"<tr><td>" . $row['bagID'] . "</td>";
 		echo"<td><div id = 'timer$i'>--</div></td>";
 		echo"<td>".$row['highestprice']."</td>";

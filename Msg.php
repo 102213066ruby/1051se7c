@@ -11,6 +11,13 @@ function getCarding(){
 	$sql = "select * from carding;";
 	return mysqli_query($conn,$sql);
 }
+function CardingGet(){
+    date_default_timezone_set('Asia/Taipei');
+    $datetime = date ("Y-m-d H:i:s");
+    global $conn;
+	$sql = "select cardID from carding where deadline<='$datetime';";
+	return mysqli_query($conn,$sql);
+}
 function getMyCarding($userName){
     global $conn;
 	//$sql = "select cardID, deadline, highestprice, bidID from carding where userID='$userName';";
@@ -84,10 +91,36 @@ function update13($userName){
     $sql = "update bag set userName ='$userName' ";
     return mysqli_query($conn,$sql);
 }
-function update14($highestprice,$userName){
+function update14($highestprice,$cardID){
     global $conn;
-    $sql = "update carding set highestprice = '$highestprice' where userName='$userName' ";
-    return mysqli_query($conn,$sql);
+    $cardID=$_POST["cardID"];
+    $userName=$_SESSION["uID"];
+    $sql = "update carding set highestprice = '$highestprice' where cardID='$cardID' ";
+    $sql2 = "update carding set bidName = '$userName' where cardID='$cardID' ";
+    mysqli_query($conn,$sql);
+    mysqli_query($conn,$sql2);
+}
+function update15($MoreMoney,$userID){
+    global $conn;
+    $sql = "update user set Money = '$MoreMoney' where userName='$userID' ";
+    mysqli_query($conn,$sql);
+}
+function update16($cardID,$bidName){
+    global $conn;
+    $sql = "update card set userName = '$bidName' where cardID='$cardID' ";
+    mysqli_query($conn,$sql);
+}
+function update17($bidName){
+    global $conn;
+    $cardID1=cardingGet();
+    $sql = "update card set userName = '$bidName' where cardID='$cardID' ";
+    mysqli_query($conn,$sql);
+}
+function update18($lessMoney){
+    global $conn;
+    $cardID1=cardingGet();
+    $sql = "update user set Money = '$lessMoney'  ";
+    mysqli_query($conn,$sql);
 }
 function baginsert($r1,$userName){
 	global $conn;
@@ -108,6 +141,11 @@ function delbagID($bagID,$userName) {
 	global $conn;
 	$sql = "delete from bag where bagID=$bagID;";
 	return mysqli_query($conn,$sql);
+}
+function insertbagID($bagID,$userName,$datetime){
+    global $conn;
+    $sql = "insert into bag (bagID,expire) values ('1','$datetime');";
+    return mysqli_query($conn,$sql);
 }
 
 

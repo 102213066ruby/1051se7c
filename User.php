@@ -14,8 +14,9 @@ function getMoney1($userName) {
 }
 function gethighestprice($userName) {
 	global $conn;
+    $cardID=$_POST[cardID];
 	$userName =mysqli_real_escape_string($conn,$userName);
-	$sql = "SELECT highestprice FROM bag WHERE userName='$userName'";
+	$sql = "SELECT highestprice FROM bag WHERE cardID='$cardID'";
 	if ($result = mysqli_query($conn,$sql)) {
 		if ($row=mysqli_fetch_assoc($result)) {
 				return $row['highestprice'];
@@ -26,11 +27,50 @@ function gethighestprice($userName) {
 }
 function getcardinghighestprice($userName) {
 	global $conn;
+    $cardID=$_POST["cardID"];
 	$userName =mysqli_real_escape_string($conn,$userName);
-	$sql = "SELECT highestprice FROM carding WHERE userName='$userName'";
+	$sql = "SELECT highestprice FROM carding WHERE cardID='$cardID'";
 	if ($result = mysqli_query($conn,$sql)) {
 		if ($row=mysqli_fetch_assoc($result)) {
-				return $row['cardinghighestprice'];
+				return $row['highestprice'];
+			} 
+		}
+	
+	return -1;
+}
+function getprice($userName) {
+	global $conn;
+    $cardID=$_POST["cardID"];
+	$userName =mysqli_real_escape_string($conn,$userName);
+	$sql = "SELECT price FROM carding WHERE cardID='$cardID'";
+	if ($result = mysqli_query($conn,$sql)) {
+		if ($row=mysqli_fetch_assoc($result)) {
+				return $row['price'];
+			} 
+		}
+	
+	return -1;
+}
+//function getcardID1($userName) {
+	//global $conn;
+	//$userName =mysqli_real_escape_string($conn,$userName);
+	//$sql = "SELECT cardID FROM carding WHERE cardID='$cardID'";
+	//if ($result = mysqli_query($conn,$sql)) {
+		//if ($row=mysqli_fetch_assoc($result)) {
+				//return $row['cardID'];
+			//} 
+		//}
+	
+	//return -1;
+//}
+function getbidName() {
+	global $conn;
+	$userName =mysqli_real_escape_string($conn,$userName);
+    $cardID1=cardingGet();
+	$sql = "SELECT bidName FROM carding WHERE cardID='$cardID1'";
+	if ($result = mysqli_query($conn,$sql)) {
+		if ($row=mysqli_fetch_assoc($result)) {
+				return $row['bidName'];
 			} 
 		}
 	
