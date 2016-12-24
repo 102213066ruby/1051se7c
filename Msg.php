@@ -81,14 +81,15 @@ function update11($highestprice){
 	return mysqli_query($conn, $sql);
     
 }
+
 function update12($userName,$lessMoney){
-    global $conn;
-	$sql ="update user set Money ='$lessMoney' where userName='$userName'";
-	return mysqli_query($conn,$sql);   
+	global $conn;
+	$sql="update user set Money ='$lessMoney'where userName ='$userName'";
+	return mysqli_query($conn,$sql);
 }
 function update13($userName){
     global $conn;
-    $sql = "update bag set userName ='$userName' ";
+    $sql = "update bag set userName ='$userName'";
     return mysqli_query($conn,$sql);
 }
 function update14($highestprice,$cardID){
@@ -124,17 +125,17 @@ function update18($lessMoney){
 }
 function baginsert($r1,$userName){
 	global $conn;
-	$sql = "insert into card (cardName,userName) values ('$r1','$userName');";
+	$sql="insert into card (cardName,userName) values ('$r1','$userName')";
 	return mysqli_query($conn,$sql);
 }
 function baginsert1($r2,$userName){
 	global $conn;
-	$sql = "insert into card (cardName,userName) values ('$r2','$userName');";
+	$sql="insert into card (cardName,userName) values ('$r2','$userName')";
 	return mysqli_query($conn,$sql);
 }
 function baginsert2($r3,$userName){
 	global $conn;
-	$sql = "insert into card (cardName,userName) values ('$r3','$userName');";
+	$sql="insert into card (cardName,userName) values ('$r3','$userName')";
 	return mysqli_query($conn,$sql);
 }
 function delbagID($bagID,$userName) {
@@ -147,28 +148,6 @@ function insertbagID($bagID,$userName,$datetime){
     $sql = "insert into bag (bagID,expire) values ('1','$datetime');";
     return mysqli_query($conn,$sql);
 }
-
-
-
-function addMsg($title, $msg, $name) {
-	global $conn;
-	$title=mysqli_real_escape_string($conn,$title);
-	$msg=mysqli_real_escape_string($conn,$msg);
-	$name=mysqli_real_escape_string($conn,$name);
-	if ($title) { //if title is not empty
-		$sql = "insert into guestbook (title, msg, name) values ('$title', '$msg','$name');";
-		return mysqli_query($conn, $sql);
-	} else {
-		return false;
-	}
-}
-
-function delMsg($msgID) {
-	global $conn;
-	$sql = "delete from guestbook where id=$msgID;";
-	return mysqli_query($conn,$sql);
-}
-
 function getcardID($cardID){
     global $conn;
 	$sql = "select * from card where cardID='$cardID';";
@@ -197,5 +176,45 @@ function getCardName($cardID) {//從cardID find cardNmae
         $n = "nothing";
         return $n;
     } 
+}
+
+function Satisfy($userName) {//玩家有幾種卡片
+    global $conn;
+    $count = 0;
+    $cardtype[0] = 0;
+    $cardtype[1] = 0;
+    $cardtype[2] = 0;
+    $cardtype[3] = 0;
+    $cardtype[4] = 0;
+    $cardtype[5] = 0;
+    $cardtype[6] = 0;
+    $cardtype[7] = 0;
+    $userName=mysqli_real_escape_string($conn,$userName);
+    $sql = "select * from card where userName='$userName';";
+    $r = mysqli_query($conn,$sql);
+    while($r1 = mysqli_fetch_assoc($r)) {
+        $card = $r1['cardName'];
+        $index = $card-1;
+        $cardtype[$index] = 1;
+    }
+    
+    for($i = 0; $i < count($cardtype); $i++) {
+        if($cardtype[$i] == 1) {
+            $count++;
+        }
+    }
+    return $count;
+}
+function reward($userName) {
+    global $conn;
+    $userName=mysqli_real_escape_string($conn,$userName);
+    $sql = "select * from user where userName='$userName';";
+    $r = mysqli_query($conn,$sql);
+    while($r1 = mysqli_fetch_assoc($r)) {
+        $money = $r1['Money'] + 10000;
+        break;
+    }
+    $sql = "update user set Money = $money where userName='$userName';";
+    return mysqli_query($conn,$sql);
 }
 ?>

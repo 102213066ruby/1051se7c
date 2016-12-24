@@ -32,7 +32,7 @@ switch($act) {
 			echo"$userName</br>";
 			echo"$lessMoney</br>";
 			echo"<a href='cardingwhere.php'> 返回</a>";
-		} else if ($highestprice < $baghighestprice) {
+		} else if ($highestprice < $baghighestprice&& $highestprice=$baghighestprice) {
 			echo "Need more Money";
             echo"<a href='cardingWhere.php'>競標&拍賣 </a></br>";
 		}else if($Money < $highestprice){

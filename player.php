@@ -36,80 +36,63 @@ window.onload = function () {
     }, 1000);
 };
 </script>
-<body>
-<p><?php echo $userName;?>您好&nbsp [<a href="logout.php">登出</a>]</p>
-<?php 
-$r = getMoney($userName);
-if ($r) {
- 	while (	$r=mysqli_fetch_assoc($r)) {
-         ?>
-         您現在有<?php echo $r['Money'];?>元
-     <?php 
-         break;
-     }
- }
- ?>
+<STYLE TYPE="text/css"> 
+<!-- 
+  @import url(http://www.mysite.com/style.css); 
+--> 
+body{
+	font-size:15pt;
+	font-family:cursive, Microsoft JhengHei;
+	A:active;
+	background-image:url(image/1.gif);
+background-repeat;
 
- <hr />
-<!--<a href=getMoney.php> 你有多少錢     </a>-->
-<a href='bag.php'> 福袋競標</a>
-<a href='cardingWhere.php'> 競標&拍賣</a>
+}
+p1{
+	text-align:right;
+
+	
+}
+p2{
+	text-align:center;
+
+}
+h1{	
+text-align:center;
+color:white;
+background-image:url(image/1.gif);
+background-repeat;
+
+}
+table{
+	text-align:center;
+}
+</STYLE>
+<body>
+<h1 style="font-family:cursive, Microsoft JhengHei"><?php echo $userName;?>您好&nbsp <a href="logout.php"><image src='image/3.jpg '></a></h1>
+<a href="cardingWhere.php" style="color:white;"> 競標&拍賣</a> <a href='change.php'style="color:white;">兌換獎品</a>
 <hr/>
-<p>您擁有的卡片 </p>
- <table width="200" border="1">
-<tr><td>cardname</td></tr>
+<h2 style="font-family:cursive, Microsoft JhengHei; text-align:center; padding:5px;color:white;">您擁有的卡片 </h2>
+<div style=" background-image:url(image/6.jpg);background-position:center; width=100 ;height=100;color:white" >
+<div><center> <table width="800" border="0" >
+<tr>
+<td>cardname</td>
+</tr>
 <?php 
 $result=get($userName);
 if ($result) {
 	while (	$rs=mysqli_fetch_assoc($result)) {
         ?>
         <tr>
-        <td><?php echo $rs['cardName'];?></td>
-        <td><a href='carding.php?cardID=<?php echo $rs['cardID'];?>'>賣</a></td>
-        </tr>
+        <?php echo"<td>" .$rs['cardName']."</td>" ?>
+        <td><a href='carding.php?cardID=<?php echo $rs['cardID'];?>'><img src='image/8.png'width="100" height="60"></a></td>
+		</tr>
         <?php 
 	}
 }
 ?>
+</center>
 </table>
- 
- <?php
- /*
- if ($result) {
- 	while (	$rs=mysqli_fetch_assoc($result)) {
- 	echo "<tr><td>" . $rs['cardName'] . "</td>";
- 	echo "<td> 賣 </td></tr>";
-     }
--}
-+}*/
- ?>
+</div>
 <hr />
-<p>您正在競標的卡片</p>
-
- <!--</body>-->
- <hr />
-<p>您正在拍賣的卡片</p>
- <table width="1000" border="5">
-  <tr>
-    <td>卡片名稱</td>
-    <td>剩餘時間</td>
-    <td>最高出價</td>
-    <td>最高得標者</td>
-  </tr>
-<?php 
-$result2=getMyCarding($userName);
-if ($result) {
-	while (	$rs=mysqli_fetch_assoc($result2)) {
-        echo "<tr><td>" . getCardName($rs['cardID']) . "</td>";
-		echo "<td>". $rs['deadline'] ."</td>";
-		echo "<td>" , $rs['highestprice'], "</td>";
-		echo "<td>" . $rs['bidName'] . "</td></tr>";
-	}
-} else {
-	echo "<tr><td>No data found!<td></tr>";
-}
-?>
-</table>
-<hr />
-
- </body>
+</body>

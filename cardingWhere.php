@@ -141,6 +141,7 @@ $arr = array();
          echo"沒有福袋了";
      }
 ?>
+<a href='player.php'>返回</a>
 <script>
 <?php
     echo"var pArray=" .json_encode($arr);    

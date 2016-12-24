@@ -30,6 +30,19 @@ function check() {
 }
 </script>
 <body>
+<?php 
+$flag = Satisfy($userName);
+if($flag == 8) {
+    if(reward($userName)) {
+        echo "Congratulation!!! you got 10000 dollars.";
+    } else {
+        echo "Ooops, sorry, there is something wrong.";
+    }
+} else {
+    echo "你尚未集滿所有卡片，無法兌換，請再加油";
+}
+?>
+
 <a href='player.php'>返回</a>
 
 <a href='loginForm.php'>登出</a>

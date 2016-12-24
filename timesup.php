@@ -7,8 +7,8 @@ switch($act){
 	case "timesup":
         $userName=$_SESSION['uID'];
         $Money=getMoney1($userName);
-        $highestprice=gethighestprice($userName);
-        $lessMoney=$Money-$highestprice;
+        $bagprice=getbagprice($userName);
+        $lessMoney=$Money-$bagprice;
         $bagID=getBagID($userName);
         $r1 = rand(1,8);
         $r2 = rand(1,8);
@@ -22,7 +22,7 @@ switch($act){
             echo"fail";
         }
 		break;
-        default:
+
     
     case "timesup1":
         $userName=$_SESSION['uID'];
@@ -41,4 +41,4 @@ switch($act){
         }
 		break;
         default:
-}     
+}   
