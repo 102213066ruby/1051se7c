@@ -11,18 +11,54 @@ $cardID = $_GET['cardID'];
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>出售卡片表單</title>
+<STYLE TYPE="text/css"> 
+<!-- 
+  @import url(http://www.mysite.com/style.css); 
+--> 
+body{
+	background-image:url(image/6.jpg);
+	font-size:15pt;
+	font-family:cursive, Microsoft JhengHei;
+	A:active;	
+}
+table{
+	text-align:center;
+	color:white;
+}
+h1{
+	text-align:center;
+	background-image:url(image/1.gif);
+	color:white;
+}
+p{
+	text-align:center;
+}
+a{
+	text-decoration:none;
+	color:white;
+	text-align:center;
+}
+a:hover{
+	color:gold;
+}
+form{
+	text-decoration:none;
+	color:white;
+	text-align:center;
+}
+</STYLE>
 </head>
 
 <body>
 
-<p>拍賣</p>
+<h1>拍賣</h1>
 <hr />
 <?php 
 $result=getcardID($cardID);
 if($result) {
     while (	$rs=mysqli_fetch_assoc($result)) {
 ?>
-        <table width="300" border="5">
+        <table width="300" border="5" align="center">
             <tr>
                 <td>卡片名稱</td><td><?php echo $rs['cardName'];?></td>
             </tr>

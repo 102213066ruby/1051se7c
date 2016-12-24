@@ -63,8 +63,41 @@ window.onload = function () {
 };
 
 </script>
-
+<STYLE TYPE="text/css"> 
+<!-- 
+  @import url(http://www.mysite.com/style.css); 
+--> 
+body{
+	background-image:url(image/6.jpg);
+	font-size:15pt;
+	font-family:cursive, Microsoft JhengHei;
+	A:active;
+	
+}
+table{
+	text-align:center;
+	color:white;
+	font-weight:bolder;
+}
+h1{
+	text-align:center;
+	background-image:url(image/1.gif);
+	color:white;
+}
+p{
+	text-align:center;
+}
+a{
+	text-decoration:none;
+	color:white;
+	text-align:center;
+}
+a:hover{
+	color:gold;
+}
+</STYLE>
 <body>
+<h1>
 <?php 
 $r = getMoney($userName);
 if ($r) {
@@ -76,9 +109,9 @@ if ($r) {
      }
  }
 ?>
+</h1>
 <p>拍賣&競標 </p>
-<hr />
-<table width="1000" border="5">
+<table width="1000" border="5" align="center">
   <tr>
     <td>卡片名稱</td>
     <td>剩餘時間</td>
@@ -100,7 +133,7 @@ if ($res1) {
         echo "<td>". $row1['price'] ."</td>";
         echo "<td>" , $row1['highestprice'], "</td>";
         echo "<td>" . $row1['bidName'] . "</td>";
-        echo"<td><a href='cardingsetprice.php?cardID={$row1['cardID']}'>出價 </a> </td> </tr>";
+        echo"<td><a href='cardingsetprice.php?cardID={$row1['cardID']}'><img src =\"image/7.png\"> </a> </td> </tr>";
         $j++;
     }
 } else {
@@ -114,9 +147,9 @@ if ($res1) {
 </script>
 
 </table>
+</hr>
 <p>福袋</p>
-<hr />
-<table width="1000" border="5">
+<table width="1000" border="5" align="center">
   <tr>
     <td>福袋</td>
     <td>剩餘時間</td>
@@ -135,13 +168,12 @@ $arr = array();
 		echo"<td><div id = 'timer$i'>--</div></td>";
 		echo"<td>".$row['highestprice']."</td>";
 		echo"<td>" . $row['userName'] . "</td>";        
-        echo"<td><a href='setprice.php'>出價 </a> </td> </tr>";
+        echo"<td><a href='setprice.php'><img src =\"image/7.png\"> </a> </td></tr>";
         $i++;
      }else{
          echo"沒有福袋了";
      }
 ?>
-<a href='player.php'>返回</a>
 <script>
 <?php
     echo"var pArray=" .json_encode($arr);    
@@ -149,6 +181,8 @@ $arr = array();
 </script>
 
 </table>
-<a href='loginForm.php'>登出</a>
+<center>
+<a href='player.php'>返回</a><a href="logout.php"><image src='image/3.jpg '>
+</center>
 </body>
 </html>
