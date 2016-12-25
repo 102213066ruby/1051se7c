@@ -1,7 +1,7 @@
 <?php
 session_start();
 require("Msg.php");
-$uID = $_SESSION["uID"];
+$userName = $_SESSION["uID"];
 $cardID = $_GET['cardID'];
 //echo $cardID;
 //$result=noWorkList();
@@ -58,36 +58,55 @@ $result=getcardID($cardID);
 if($result) {
     while (	$rs=mysqli_fetch_assoc($result)) {
 ?>
-        <table width="300" border="5" align="center">
-            <tr>
-                <td>卡片名稱</td><td><?php echo $rs['cardName'];?></td>
-            </tr>
-            <tr>
-                <td>出售者</td><td><?php echo $rs['userName'];?></td>
-            </tr>
-                <!--<td>剩餘時間</td>
-                <td>招標底價</td>
-                <td>最高出價</td>
-                <td>最高得標者</td>-->
-            <tr>
-                <td>出價</td>
-            </tr>
-            <tr>
-                <td>截標時間</td>
-            </tr>
-            <tr>
-                <form method="post" action="controller.php">
-                    <input type="hidden" name="act" id="act" value="sell">
-                    <input type="hidden" name="uID" id="uID" value="<?php echo $uID;?>">
-                    <input type="hidden" name="cardID" id="cardID" value="<?php echo $cardID;?>">
-                    <td><input type="text" name="bidMoney" id="bidMoney"></td>
-                    <td><input type="datetime-Local" name="deadline" id="deadline"></td>
+        <form method="post" action="controller.php">
+            <input type="hidden" name="act" id="act" value="sell">
+            <input type="hidden" name="userName" id="userName" value="<?php echo $userName;?>">
+            <input type="hidden" name="cardID" id="cardID" value="<?php echo $cardID;?>">
+                
+            <table width="300" border="5" align="center">
+                <tr>
+                    <td>卡片名稱</td><td><?php echo $rs['cardName'];?></td>
+                </tr>
+                <tr>
+                    <td>出售者</td><td><?php echo $rs['userName'];?></td>
+                </tr>
+                    <!--<td>剩餘時間</td>
+                    <td>招標底價</td>
+                    <td>最高出價</td>
+                    <td>最高得標者</td>-->
+                <tr>
+                    <td>出價</td>
+                    <td><input type="text" name="bidMoney" id="bidMoney"></td>                    
+                </tr>
+                <tr>
+                    <td>截標時間</td>
+                    <td><input type="datetime-Local" name="deadline" id="deadline"></td>                    
+                </tr>
+                <tr>
+                    <td></td>
                     <td><input type="submit" name="Submit" value="送出" /></td>
-                    </td>
-                </form>
-            </tr>
+                </tr>
+            </table>
+        </form>
+        
+        
+        <!--
+        <table width="300" border="5" align="center">
+            <tr> <td>卡片名稱</td><td><?php echo $rs['cardName'];?></td></tr>
+            <tr><td>出售者</td><td><?php echo $rs['userName'];?></td></tr>
+            <tr><td>截標時間</td></tr>
+            <tr><form method="post" action="controller.php">
+                 <input type="hidden" name="act" id="act" value="sell">
+                 <input type="hidden" name="userName" id="userName" value="<?php echo $userName;?>">
+                 <input type="hidden" name="cardID" id="cardID" value="<?php echo $cardID;?>">
+				 <input type="hidden" name="cardName" id="cardName" value="<?php echo$rs['cardName'];?>">
+                 <td><input type="text" name="price" id="price"></td>
+                 <td><input type="datetime-Local" name="deadline" id="deadline"></td>
+                 <td><input type="submit" name="Submit" value="送出" /></td>
+                 </td></form</tr>
             
         </table>
+        -->
 <?php     
     }
 }

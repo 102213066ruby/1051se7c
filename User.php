@@ -7,16 +7,14 @@ function getMoney1($userName) {
 	if ($result = mysqli_query($conn,$sql)) {
 		if ($row=mysqli_fetch_assoc($result)) {
 				return $row['Money'];
-			} 
-		}
+		} 
+	}
 	
 	return -1;
 }
-function gethighestprice($userName) {
+function gethighestprice() {
 	global $conn;
-    $cardID=$_POST[cardID];
-	$userName =mysqli_real_escape_string($conn,$userName);
-	$sql = "SELECT highestprice FROM bag WHERE cardID='$cardID'";
+	$sql = "SELECT highestprice FROM bag ";
 	if ($result = mysqli_query($conn,$sql)) {
 		if ($row=mysqli_fetch_assoc($result)) {
 				return $row['highestprice'];
@@ -25,10 +23,8 @@ function gethighestprice($userName) {
 	
 	return -1;
 }
-function getcardinghighestprice($userName) {
+function getcardinghighestprice($cardID) {
 	global $conn;
-    $cardID=$_POST["cardID"];
-	$userName =mysqli_real_escape_string($conn,$userName);
 	$sql = "SELECT highestprice FROM carding WHERE cardID='$cardID'";
 	if ($result = mysqli_query($conn,$sql)) {
 		if ($row=mysqli_fetch_assoc($result)) {
@@ -63,11 +59,9 @@ function getprice($userName) {
 	
 	//return -1;
 //}
-function getbidName() {
+function getbidName($cardID) {
 	global $conn;
-	$userName =mysqli_real_escape_string($conn,$userName);
-    $cardID1=cardingGet();
-	$sql = "SELECT bidName FROM carding WHERE cardID='$cardID1'";
+	$sql = "SELECT bidName FROM carding WHERE cardID='$cardID'";
 	if ($result = mysqli_query($conn,$sql)) {
 		if ($row=mysqli_fetch_assoc($result)) {
 				return $row['bidName'];
@@ -76,10 +70,53 @@ function getbidName() {
 	
 	return -1;
 }
-function getbagID($userName) {
+function getbidNameMoney($bidName) {
 	global $conn;
-	$userName =mysqli_real_escape_string($conn,$userName);
-	$sql = "SELECT bagID FROM bag WHERE userName='$userName'";
+	$sql = "SELECT Money FROM user WHERE userName='$bidName'";
+	if ($result = mysqli_query($conn,$sql)) {
+		if ($row=mysqli_fetch_assoc($result)) {
+				return $row['Money'];
+			} 
+		}
+	
+	return -1;
+}
+function getuserID($cardID) {
+	global $conn;
+	$sql = "SELECT userID FROM carding WHERE cardID='$cardID'";
+	if ($result = mysqli_query($conn,$sql)) {
+		if ($row=mysqli_fetch_assoc($result)) {
+				return $row['userID'];
+			} 
+		}
+	
+	return -1;
+}
+function getuserIDMoney($userID) {
+	global $conn;
+	$sql = "SELECT Money FROM user WHERE userName='$userID'";
+	if ($result = mysqli_query($conn,$sql)) {
+		if ($row=mysqli_fetch_assoc($result)) {
+				return $row['Money'];
+			} 
+		}
+	
+	return -1;
+}
+function getcardingcardname($cardID) {
+	global $conn;
+	$sql = "SELECT cardName FROM carding WHERE cardID='$cardID'";
+	if ($result = mysqli_query($conn,$sql)) {
+		if ($row=mysqli_fetch_assoc($result)) {
+				return $row['cardName'];
+			} 
+		}
+	
+	return -1;
+}
+function getbagID() {
+	global $conn;
+	$sql = "SELECT bagID FROM bag";
 	if ($result = mysqli_query($conn,$sql)) {
 		if ($row=mysqli_fetch_assoc($result)) {
 				return $row['bagID'];
@@ -126,6 +163,4 @@ function register($UserID,$password) {
         return false;
     }
 }
-
-
 ?>

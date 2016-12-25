@@ -101,26 +101,10 @@ function update14($highestprice,$cardID){
     mysqli_query($conn,$sql);
     mysqli_query($conn,$sql2);
 }
-function update15($MoreMoney,$userID){
-    global $conn;
-    $sql = "update user set Money = '$MoreMoney' where userName='$userID' ";
-    mysqli_query($conn,$sql);
-}
+
 function update16($cardID,$bidName){
     global $conn;
     $sql = "update card set userName = '$bidName' where cardID='$cardID' ";
-    mysqli_query($conn,$sql);
-}
-function update17($bidName){
-    global $conn;
-    $cardID1=cardingGet();
-    $sql = "update card set userName = '$bidName' where cardID='$cardID' ";
-    mysqli_query($conn,$sql);
-}
-function update18($lessMoney){
-    global $conn;
-    $cardID1=cardingGet();
-    $sql = "update user set Money = '$lessMoney'  ";
     mysqli_query($conn,$sql);
 }
 function baginsert($r1,$userName){
@@ -138,7 +122,7 @@ function baginsert2($r3,$userName){
 	$sql="insert into card (cardName,userName) values ('$r3','$userName')";
 	return mysqli_query($conn,$sql);
 }
-function delbagID($bagID,$userName) {
+function delbagID($bagID) {
 	global $conn;
 	$sql = "delete from bag where bagID=$bagID;";
 	return mysqli_query($conn,$sql);
@@ -153,14 +137,19 @@ function getcardID($cardID){
 	$sql = "select * from card where cardID='$cardID';";
 	return mysqli_query($conn,$sql);
 }
-
-function bid($cardID,$deadline, $bidMoney, $uID) {//賣卡片
+function getcardID2(){
     global $conn;
-    $cardID=mysqli_real_escape_string($conn,$cardID);
-    $deadline=mysqli_real_escape_string($conn,$deadline);
-    $bidMoney=mysqli_real_escape_string($conn,$bidMoney);
-    $uID=mysqli_real_escape_string($conn,$uID);
-    $sql = "insert into carding (cardID, deadline, price, userID) values ('$cardID', '$deadline', '$bidMoney', '$uID');";
+	$sql = "select cardID from carding where deadline < NOW();";
+	if ($result = mysqli_query($conn,$sql)) {
+		if ($row=mysqli_fetch_assoc($result)) {
+				return $row['cardID'];
+			} 
+		}
+	return -1;
+}
+function bid($cardID,$deadline, $price, $userName,$cardName) {//賣卡片
+    global $conn;
+    $sql = "insert into carding (cardID, deadline, price, userID,cardName) values ('$cardID', '$deadline', '$price', '$userName','$cardName');";
     return mysqli_query($conn,$sql);
 }
 
@@ -177,7 +166,37 @@ function getCardName($cardID) {//從cardID find cardNmae
         return $n;
     } 
 }
-
+function baginsert4($r1,$r2,$r3,$userName){
+	global $conn;
+	$sql = "insert into card (cardName,userName) values ('$r1','$userName');";
+    $sql1 = "insert into card (cardName,userName) values ('$r2','$userName');";
+    $sql2 = "insert into card (cardName,userName) values ('$r3','$userName');";
+	mysqli_query($conn,$sql);
+    mysqli_query($conn,$sql1);
+    mysqli_query($conn,$sql2);
+}
+function whoGetBag() {
+    global $conn;
+	//$userName =mysqli_real_escape_string($conn,$userName);
+	$sql = "select userName from bag ;";
+	if ($result = mysqli_query($conn,$sql)) {
+		if ($row=mysqli_fetch_assoc($result)) {
+				return $row['userName'];
+			} 
+		}
+	return -1;
+}
+function getMoney11($userName){
+    global $conn;
+	$sql = "select Money from user where userName='$userName';";
+	if ($result = mysqli_query($conn,$sql)) {
+		if ($row=mysqli_fetch_assoc($result)) {
+				return $row['Money'];
+			} 
+		}
+	
+	return -1;
+}
 function Satisfy($userName) {//玩家有幾種卡片
     global $conn;
     $count = 0;
@@ -215,6 +234,61 @@ function reward($userName) {
         break;
     }
     $sql = "update user set Money = $money where userName='$userName';";
+    if(mysqli_query($conn,$sql)) {
+        //如果獎金發下，成功則刪除八張卡片
+        for($i = 1; $i <9 ; $i++) {
+            $sql_4 = "select * from card where userName='$userName' and cardName = '$i';";
+            $r_4 = mysqli_query($conn,$sql_4);
+            while($r2 = mysqli_fetch_assoc($r_4)) {
+                $cardid = $r2['cardID'];
+                $sql_3= "delete from card where cardID='$cardid';";
+                if(mysqli_query($conn,$sql_3)) {
+                    //
+                } else {
+                    //return false;
+                    echo "delete error";
+                }
+                break;
+            }
+            /*while($r2 = mysqli_fetch_assoc($r_4)) {
+                $card = $r2['cardName'];
+                if($card == $i) {
+                    $cardid = $r2['cardID'];
+                    $sql_3= "delete from card where cardID='$cardid';";
+                    if(mysqli_query($conn,$sql_3)) {
+                        //
+                    } else {
+                        //return false;
+                        echo "delete error";
+                    }
+                }
+                break;
+            }*/
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
+function update100($bidName,$lessMoney){//扣款
+    global $conn;
+	$sql="update user set Money ='$lessMoney'where userName ='$bidName';";
+    //$sql = "update user set Money = '$lessMoney' where userName='$bidName'; ";
     return mysqli_query($conn,$sql);
+}
+function update101($bidName,$cardID){
+    global $conn;
+    $sql = "update card set userName ='$bidName' where cardID ='$cardID';";
+    return mysqli_query($conn,$sql);
+}
+function update102($MoreMoney,$userID){
+    global $conn;
+    $sql = "update user set Money ='$MoreMoney' where userName ='$userID';";
+    return mysqli_query($conn,$sql);
+}
+function del100($cardID) {
+	global $conn;
+	$sql = "delete from carding where cardID=$cardID;";
+	return mysqli_query($conn,$sql);
 }
 ?>

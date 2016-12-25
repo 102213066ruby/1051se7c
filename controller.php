@@ -7,19 +7,20 @@ if(! isset($_POST["act"])) {
 	exit(0);
     
 }
-
+$userName=$_SESSION['uID'];
 
 $act =$_POST["act"];
 switch($act) {   
 
     case "sell":
+		$userName=$_POST['userName'];
         $cardID=$_POST['cardID'];
         $deadline=$_POST['deadline'];
-        $bidMoney=$_POST['bidMoney'];
-        $uID=$_POST['uID'];
-        if(bid($cardID,$deadline,$bidMoney,$uID)){
+        $price=$_POST['price'];
+		$cardName=$_POST['cardName'];
+        if(bid($cardID,$deadline,$price,$userName,$cardName)){
             header("Location:player.php");
-            //echo"sucess";
+            echo"sucess";
         }else{
             echo "Error";
         }

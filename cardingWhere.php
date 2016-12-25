@@ -23,7 +23,7 @@ function checkCarding() {
 			//expired, set the explode image and text
 			//$("#bomb" + i).attr('src',"images/explode.jpg");
 			$("#timerj"+j).html("截標")
-            //location.href="timesup1.php?act=timesup1";
+            location.href="timesup.php?act=timesup1";
 		} else {
 			//set the bomb image  and calculate count down
 			//$("#bomb" + i).attr('src',"images/bomb.jpg");
