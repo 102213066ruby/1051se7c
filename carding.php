@@ -58,39 +58,6 @@ $result=getcardID($cardID);
 if($result) {
     while (	$rs=mysqli_fetch_assoc($result)) {
 ?>
-        <form method="post" action="controller.php">
-            <input type="hidden" name="act" id="act" value="sell">
-            <input type="hidden" name="userName" id="userName" value="<?php echo $userName;?>">
-            <input type="hidden" name="cardID" id="cardID" value="<?php echo $cardID;?>">
-                
-            <table width="300" border="5" align="center">
-                <tr>
-                    <td>卡片名稱</td><td><?php echo $rs['cardName'];?></td>
-                </tr>
-                <tr>
-                    <td>出售者</td><td><?php echo $rs['userName'];?></td>
-                </tr>
-                    <!--<td>剩餘時間</td>
-                    <td>招標底價</td>
-                    <td>最高出價</td>
-                    <td>最高得標者</td>-->
-                <tr>
-                    <td>出價</td>
-                    <td><input type="text" name="bidMoney" id="bidMoney"></td>                    
-                </tr>
-                <tr>
-                    <td>截標時間</td>
-                    <td><input type="datetime-Local" name="deadline" id="deadline"></td>                    
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" name="Submit" value="送出" /></td>
-                </tr>
-            </table>
-        </form>
-        
-        
-        <!--
         <table width="300" border="5" align="center">
             <tr> <td>卡片名稱</td><td><?php echo $rs['cardName'];?></td></tr>
             <tr><td>出售者</td><td><?php echo $rs['userName'];?></td></tr>
@@ -106,7 +73,6 @@ if($result) {
                  </td></form</tr>
             
         </table>
-        -->
 <?php     
     }
 }

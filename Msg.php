@@ -186,6 +186,18 @@ function whoGetBag() {
 		}
 	return -1;
 }
+function reward($userName) {
+    global $conn;
+    $userName=mysqli_real_escape_string($conn,$userName);
+    $sql = "select * from user where userName='$userName';";
+    $r = mysqli_query($conn,$sql);
+    while($r1 = mysqli_fetch_assoc($r)) {
+        $money = $r1['Money'] + 10000;
+        break;
+    }
+    $sql = "update user set Money = $money where userName='$userName';";
+    return mysqli_query($conn,$sql);
+}
 function getMoney11($userName){
     global $conn;
 	$sql = "select Money from user where userName='$userName';";
@@ -223,52 +235,6 @@ function Satisfy($userName) {//玩家有幾種卡片
         }
     }
     return $count;
-}
-function reward($userName) {
-    global $conn;
-    $userName=mysqli_real_escape_string($conn,$userName);
-    $sql = "select * from user where userName='$userName';";
-    $r = mysqli_query($conn,$sql);
-    while($r1 = mysqli_fetch_assoc($r)) {
-        $money = $r1['Money'] + 10000;
-        break;
-    }
-    $sql = "update user set Money = $money where userName='$userName';";
-    if(mysqli_query($conn,$sql)) {
-        //如果獎金發下，成功則刪除八張卡片
-        for($i = 1; $i <9 ; $i++) {
-            $sql_4 = "select * from card where userName='$userName' and cardName = '$i';";
-            $r_4 = mysqli_query($conn,$sql_4);
-            while($r2 = mysqli_fetch_assoc($r_4)) {
-                $cardid = $r2['cardID'];
-                $sql_3= "delete from card where cardID='$cardid';";
-                if(mysqli_query($conn,$sql_3)) {
-                    //
-                } else {
-                    //return false;
-                    echo "delete error";
-                }
-                break;
-            }
-            /*while($r2 = mysqli_fetch_assoc($r_4)) {
-                $card = $r2['cardName'];
-                if($card == $i) {
-                    $cardid = $r2['cardID'];
-                    $sql_3= "delete from card where cardID='$cardid';";
-                    if(mysqli_query($conn,$sql_3)) {
-                        //
-                    } else {
-                        //return false;
-                        echo "delete error";
-                    }
-                }
-                break;
-            }*/
-        }
-        return true;
-    } else {
-        return false;
-    }
 }
 function update100($bidName,$lessMoney){//扣款
     global $conn;
